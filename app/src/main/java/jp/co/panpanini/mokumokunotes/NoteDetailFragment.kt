@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_note_detail.*
+import org.w3c.dom.Text
 
 class NoteDetailFragment: Fragment() {
 
@@ -19,12 +20,6 @@ class NoteDetailFragment: Fragment() {
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(NoteDetailViewModel::class.java)
     }
-
-    private val noteText: TextView
-        get() = note_text
-
-    private val noteCreatedAt: TextView
-        get() = created_at
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,17 +32,22 @@ class NoteDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO: set the note to the ViewModel
 
         setupBindings()
+
+        //TODO: set the note to the ViewModel
+        viewModel.setNote(note)
     }
 
     private fun setupBindings() {
         viewModel.noteText.observe(this, Observer {
-                noteText.text = it
+            noteText.text = it
         })
 
         //TODO observe viewModel.noteCreatedAt
+        viewModel.noteCreatedAt.observe(this, Observer {
+            noteCreatedAt.text = it.toString()
+        })
     }
 
     companion object {

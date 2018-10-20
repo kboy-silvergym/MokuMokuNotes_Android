@@ -45,12 +45,14 @@ class NoteListFragment: Fragment() {
     }
 
     private fun setupBindings() {
-        //TODO Quest 2: bind the ViewModel
+        // TODO Quest 2: bind the ViewModel
         // Did you notice nothing was being displayed? We should Observe our ViewModel, to get
         // Updates when the data changes.
-//        viewModel.notes.observe(this, Observer {
-//                noteAdapter.addNotes(it)
-//        })
+        viewModel.notes.observe(this, Observer {
+            it?.let {
+                noteAdapter.addNotes(it)
+            }
+        })
 
         // Even if we uncomment the code, it doesn't compile right?
         // Thats because the types mismatch - the Observer is providing a nullable List, but
@@ -68,7 +70,7 @@ class NoteListFragment: Fragment() {
         // we must return a boolean to say that this menu item click was handled
         return when (item?.itemId) {
             R.id.add_note -> {
-                TODO("we should show the Add Note Fragment here")
+                transitionToAddNote()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -76,7 +78,7 @@ class NoteListFragment: Fragment() {
     }
 
     private fun transitionToNoteDetail(note: Note) {
-        TODO("transition to note detail")
+        (activity as? MainActivity)?.transitionToDetail(note)
     }
 
     private fun transitionToAddNote() {

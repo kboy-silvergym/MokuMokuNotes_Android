@@ -24,7 +24,7 @@ class NoteCreateFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        TODO("lets inflate the view here. we should use R.layout.fragment_note_create")
+        return inflater.inflate(R.layout.fragment_note_create, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,9 +49,9 @@ class NoteCreateFragment: Fragment() {
     }
 
     private fun saveNote() {
-//        val note = noteEditText.text.toString()
+        val note = noteEditText.text.toString()
 
-        TODO("save the item in the ViewModel, and return to the list")
+        viewModel.saveNote(note)
 
         (activity as? MainActivity)?.transitionBack()
     }
